@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h1 style="color: lightblue; font-size: 35px;">Welcome to ToO DoO</h1>       
+        <p style="color: lightblue;">This app allows you to manage your time in an efficient way!</p>
+        <p style="color: lightblue;">Please login to continue!</p>
+        <br>
+        <a href="{% url 'login' %}" style="background-color: lightblue; color: Black; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Login</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h1 style="color: lightblue; font-size: 35px;">Welcome to ToO DoO</h1>
+        {% if user.is_authenticated %}
+            <p style="color: lightblue;font-size: 22px;">Find your upcoming events below.</p>
+            <ul style="list-style-type: none;">
+                {% for event in upcoming_events %}
+                    <li style="margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; background-color: lightblue; color: black; padding: 10px; border-radius: 5px;">
+                            <div style="flex-basis: 16.66%; font-weight: bold;">{{ event.name }}</div>
+                            <div style="flex-basis: 16.66%;">{{ event.date }}</div>
+                            <div style="flex-basis: 16.66%;">{{ event.start_time }}</div>
+                            <div style="flex-basis: 16.66%;">{{ event.duration }} hours</div>
+                            <div style="flex-basis: 16.66%;">
+                                <a href="{% url 'edit_event' event.id %}" style="color: black; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 10px;">Edit</a>
+                            </div>
+                            <div style="flex-basis: 16.66%;">
+                                <a href="{% url 'delete_event' event.id %}" style="color: black; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Delete</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                {% for event in expired_events %}
+                    <li style="margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; background-color: gray; color: black; padding: 10px; border-radius: 5px;">
+                            <div style="flex-basis: 16.66%; font-weight: bold;">{{ event.name }}</div>
+                            <div style="flex-basis: 16.66%;">{{ event.date }}</div>
+                            <div style="flex-basis: 16.66%;">{{ event.start_time }}</div>
+                            <div style="flex-basis: 16.66%;">{{ event.duration }} hours</div>
+                            <div style="flex-basis: 16.66%;">
+                                <a href="{% url 'edit_event' event.id %}" style="color: black; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 10px;">Edit</a>
+                            </div>
+                            <div style="flex-basis: 16.66%;">
+                                <a href="{% url 'delete_event' event.id %}" style="color: black; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Delete</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <br>
+            <a href="{% url 'create_event' %}" style="background-color: lightblue; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Create Event</a>
+        {% else %}
+            <p style="color: lightblue;">This app allows you to manage your time in an efficient way!</p>
+            <p style="color: lightblue;">Please login to continue!</p>
+            <br>
+            <a href="{% url 'login' %}" style="background-color: lightblue; color: Black; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Login</a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <label for="username">Username or Email:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <button type="submit" class="login-button">Login</button>
+  </form>
+  <p>Not registered yet? <a href="{% url 'register' %}">Register here</a>.</p>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.querySelector('form');
+      loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(loginForm);
+        fetch('{% url 'login' %}', {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = "{% url 'index' %}";  // Redirect to index.html
+          } else {
+            // Handle login error if needed
+          }
+        })
+        .catch(error => {
+          // Handle network or server error if needed
+        });
+      });
+    });
+  </script>
+{% endblock %}
